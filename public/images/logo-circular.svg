@@ -1,0 +1,36 @@
+<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+  <!-- Circular logo with C and flame -->
+  <circle cx="30" cy="30" r="28" fill="#1B4F72" stroke="#2980B9" stroke-width="2"/>
+  
+  <!-- Letter C -->
+  <path d="M20 15 
+           C35 15, 45 20, 45 30
+           C45 40, 35 45, 20 45
+           L20 40
+           C30 40, 35 37, 35 30
+           C35 23, 30 20, 20 20
+           Z" 
+        fill="white" />
+  
+  <!-- Flame symbol inside C -->
+  <path d="M30 20
+           C33 22, 35 25, 34 28
+           C33 30, 34 32, 36 33
+           C37 34, 36 35, 35 36
+           C34 36, 33 35, 32 34
+           C31 33, 30 34, 29 35
+           C28 36, 27 35, 26 34
+           C25 33, 26 32, 27 31
+           C28 30, 27 29, 28 28
+           C29 25, 30 20"
+        fill="#FF6B35" />
+  
+  <!-- Small inner flame -->
+  <path d="M30 23
+           C31 25, 32 27, 31 28
+           C30 29, 31 30, 30 31
+           C29 31, 28 30, 28 29
+           C28 28, 29 27, 30 26
+           C30 25, 30 23"
+        fill="#FFD700" opacity="0.8" />
+</svg>
