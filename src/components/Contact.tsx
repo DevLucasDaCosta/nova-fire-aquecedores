@@ -17,15 +17,37 @@ export default function Contact() {
     console.log('Form submitted:', formData);
     
     const whatsappMessage = `Olá! Vim do site da Nova Fire.%0A%0ANome: ${formData.name}%0AEmail: ${formData.email}%0ATelefone: ${formData.phone}%0AServiço: ${formData.service}%0AMensagem: ${formData.message}`;
-    const whatsappUrl = `https://wa.me/5521999999999?text=${whatsappMessage}`;
+    const whatsappUrl = `https://wa.me/5521959455162?text=${whatsappMessage}`;
     
     window.open(whatsappUrl, '_blank');
   };
 
+
+  const formatPhone = (value: string) => {
+    const numbers = value.replace(/\D/g, '');
+    
+    const limited = numbers.slice(0, 11);
+    
+    if (limited.length === 0) return '';
+    if (limited.length <= 2) return `(${limited}`;
+    if (limited.length <= 7) return `(${limited.slice(0, 2)}) ${limited.slice(2)}`;
+    return `(${limited.slice(0, 2)}) ${limited.slice(2, 7)}-${limited.slice(7)}`;
+  };
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+    let value = e.target.value;
+    
+    if (e.target.name === 'phone') {
+      if (value === '') {
+        value = '';
+      } else {
+        value = formatPhone(value);
+      }
+    }
+
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [e.target.name]: value
     });
   };
 
@@ -64,7 +86,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <h4 className="font-semibold text-gray-900 mb-1">Telefone</h4>
-                  <p className="text-gray-600">(21) 99999-9999</p>
+                  <p className="text-gray-600">(21) 95945-5162</p>
                   <p className="text-sm text-gray-500">WhatsApp disponível</p>
                 </div>
               </div>
@@ -75,7 +97,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <h4 className="font-semibold text-gray-900 mb-1">Email</h4>
-                  <p className="text-gray-600">contato@novafireaquecedores.com.br</p>
+                  <p className="text-gray-600">contato@novafire.com.br</p>
                   <p className="text-sm text-gray-500">Respondemos em até 2h</p>
                 </div>
               </div>
@@ -110,7 +132,7 @@ export default function Contact() {
                 Para situações de emergência, ligue diretamente:
               </p>
               <a
-                href="tel:+5521999999999"
+                href="tel:+5521959455162"
                 className="inline-flex items-center bg-red-500 text-white px-6 py-3 rounded-lg hover:bg-red-600 transition-colors font-semibold"
               >
                 <Phone className="mr-2" size={20} />
@@ -169,6 +191,7 @@ export default function Contact() {
                   required
                   value={formData.phone}
                   onChange={handleChange}
+                  maxLength={15}
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
                   placeholder="(21) 99999-9999"
                 />

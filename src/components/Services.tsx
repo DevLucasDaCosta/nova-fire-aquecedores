@@ -1,4 +1,4 @@
-import { Wrench, Shield, Clock, Zap, Thermometer, Droplets } from 'lucide-react';
+import { Wrench, Shield, Clock, Zap, Thermometer, Search } from 'lucide-react';
 
 export default function Services() {
   const services = [
@@ -28,9 +28,9 @@ export default function Services() {
       description: "Ajuste e calibração da temperatura para máximo conforto e economia."
     },
     {
-      icon: <Droplets className="text-cyan-500" size={40} />,
-      title: "Limpeza e Higienização",
-      description: "Limpeza completa do sistema para garantir água limpa e segura."
+      icon: <Search className="text-cyan-500" size={40} />,
+      title: "Vistoria Técnica",
+      description: "Avaliação completa do sistema para garantir segurança, eficiência e conformidade com as normas."
     }
   ];
 
@@ -53,9 +53,9 @@ export default function Services() {
           {services.map((service, index) => (
             <div
               key={index}
-              className="bg-gray-50 p-8 rounded-xl hover:shadow-lg transition-shadow duration-300 group"
+              className="bg-gray-50 p-8 rounded-xl hover:shadow-lg transition-shadow duration-300"
             >
-              <div className="mb-6 group-hover:scale-110 transition-transform duration-300">
+              <div className="mb-6 transition-transform duration-300">
                 {service.icon}
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-4">
@@ -78,7 +78,7 @@ export default function Services() {
               Nossa equipe está disponível 24h para emergências
             </p>
             <a
-              href="tel:+5521999999999"
+              href="tel:+5521959455162"
               className="inline-flex items-center bg-white text-orange-500 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
             >
               <Clock className="mr-2" size={20} />

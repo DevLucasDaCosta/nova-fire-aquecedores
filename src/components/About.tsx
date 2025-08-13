@@ -84,8 +84,8 @@ export default function About() {
                 <Image
                   src="/images/logo-nova-fire.svg"
                   alt="Nova Fire Aquecedores"
-                  width={300}
-                  height={200}
+                  width={200}
+                  height={75}
                   className="w-full h-auto"
                 />
               </div>
