@@ -102,7 +102,7 @@ const WhatsAppPopup = () => {
                   <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-400 rounded-full border-2 border-white"></div>
                 </div>
                 <div>
-                  <h3 className="font-semibold text-lg">Nova Fire</h3>
+                  <h3 className="font-semibold text-md">Nova Fire Aquecedores</h3>
                   <div className="flex items-center space-x-1">
                     <div className="w-2 h-2 bg-green-300 rounded-full animate-pulse"></div>
                     <p className="text-sm opacity-90">Online agora</p>

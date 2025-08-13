@@ -30,8 +30,8 @@ export default function About() {
     "Peças originais e de qualidade",
     "Atendimento rápido e eficiente",
     "Orçamento sem compromisso",
-    "Garantia de 1 ano nos serviços",
-    "Cobertura em todo Rio de Janeiro"
+    "Cobertura em Rio de Janeiro e Niterói",
+    "Garantia de 1 ano nos serviços"
   ];
 
   return (
@@ -45,7 +45,7 @@ export default function About() {
                 Sobre a Nova Fire
               </h2>
               <p className="text-lg text-gray-600 leading-relaxed mb-6">
-                A Nova Fire é especialista em serviços de aquecedores no Rio de Janeiro. 
+                A Nova Fire é especialista em serviços de aquecedores em Rio de Janeiro e Niterói. 
                 Com mais de 10 anos de experiência, nossa equipe oferece soluções 
                 completas para instalação, manutenção e reparo de aquecedores.
               </p>

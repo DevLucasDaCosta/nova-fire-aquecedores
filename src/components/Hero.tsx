@@ -15,7 +15,7 @@ export default function Hero() {
               </h1>
               <p className="text-xl text-gray-600 leading-relaxed">
                 Instalação, manutenção e reparo de aquecedores com garantia e qualidade. 
-                Atendimento 24h para emergências no Rio de Janeiro.
+                Atendimento 24h para emergências em Rio de Janeiro e Niterói.
               </p>
             </div>
 

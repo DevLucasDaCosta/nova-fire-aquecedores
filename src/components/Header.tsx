@@ -23,7 +23,7 @@ export default function Header() {
             </div>
             <div className="flex items-center space-x-1">
               <MapPin size={14} />
-              <span>Rio de Janeiro - RJ</span>
+              <span>Rio de Janeiro e Niterói - RJ </span>
             </div>
           </div>
           <div className="hidden md:block">

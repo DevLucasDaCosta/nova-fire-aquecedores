@@ -19,7 +19,7 @@ export default function Footer() {
               />
             </div>
             <p className="text-gray-300 leading-relaxed text-sm">
-              Especialistas em aquecedores no Rio de Janeiro. 
+              Especialistas em aquecedores em Rio de Janeiro e Niterói. 
               Qualidade, rapidez e garantia em todos os serviços.
             </p>
             <div className="space-y-2">
