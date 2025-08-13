@@ -75,7 +75,7 @@ export default function Hero() {
             <div className="pt-6 border-t border-gray-200">
               <div className="flex items-center space-x-4">
                 <div className="relative">
-                  <div className="w-16 h-16 bg-white rounded-full shadow-lg flex items-center justify-center overflow-hidden">
+                  <div className="w-24 h-24 bg-white rounded-full shadow-lg flex items-center justify-center overflow-hidden">
                     <Image
                       src="/images/naturgy-logo.svg"
                       alt="Naturgy - Empresa Licenciada"
@@ -84,15 +84,15 @@ export default function Hero() {
                       className="w-full h-full"
                     />
                   </div>
-                  <div className="absolute -top-1 -right-1 w-5 h-5 bg-green-500 rounded-full flex items-center justify-center">
-                    <CheckCircle className="text-white" size={12} />
+                  <div className="absolute -top-1 -right-1 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
+                    <CheckCircle className="text-white" size={16} />
                   </div>
                 </div>
                 <div className="flex-1">
-                  <p className="text-sm font-semibold text-gray-900">
+                  <p className="text-lg font-semibold text-gray-900">
                     Empresa Licenciada Naturgy
                   </p>
-                  <p className="text-xs text-gray-600">
+                  <p className="text-md text-gray-600">
                     Autorizada para instalação e manutenção de equipamentos
                   </p>
                 </div>
@@ -104,7 +104,7 @@ export default function Hero() {
           <div className="relative">
             <div className="relative z-10">
               <Image
-                src="/images/heater-service.png"
+                src="/images/heater-service.svg"
                 alt="Serviços de aquecedores"
                 width={600}
                 height={450}

@@ -107,9 +107,24 @@ export default function Contact() {
                   <MapPin className="text-green-500" size={24} />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-gray-900 mb-1">Atendimento</h4>
-                  <p className="text-gray-600">Todo Rio de Janeiro</p>
-                  <p className="text-sm text-gray-500">Zona Sul, Norte, Oeste e Centro</p>
+                  <h4 className="font-semibold text-gray-900 mb-1">Nossas Unidades</h4>
+                  <div className="space-y-3">
+                    <div>
+                      <p className="text-gray-900 font-medium text-sm">Copacabana</p>
+                      <p className="text-gray-600 text-sm">Av. Nossa Sra. de Copacabana, 581</p>
+                      <p className="text-gray-600 text-sm">Copacabana, Rio de Janeiro - RJ</p>
+                    </div>
+                    <div>
+                      <p className="text-gray-900 font-medium text-sm">Niterói</p>
+                      <p className="text-gray-600 text-sm">R. Dr. Mario Vianna, 331</p>
+                      <p className="text-gray-600 text-sm">Santa Rosa, Niterói - RJ</p>
+                    </div>
+                    <div>
+                      <p className="text-gray-900 font-medium text-sm">Recreio</p>
+                      <p className="text-gray-600 text-sm">Estrada Benvindo de Novaes, 1880</p>
+                      <p className="text-gray-600 text-sm">Recreio dos Bandeirantes - RJ</p>
+                    </div>
+                  </div>
                 </div>
               </div>
 
@@ -207,14 +222,14 @@ export default function Contact() {
                   required
                   value={formData.service}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent cursor-pointer"
                 >
-                  <option value="">Selecione o serviço</option>
-                  <option value="instalacao">Instalação de Aquecedor</option>
-                  <option value="manutencao">Manutenção</option>
-                  <option value="reparo">Reparo</option>
-                  <option value="emergencia">Emergência 24h</option>
-                  <option value="orcamento">Orçamento</option>
+                  <option value="" className="cursor-pointer">Selecione o serviço</option>
+                  <option value="instalacao" className="cursor-pointer">Instalação de Aquecedor</option>
+                  <option value="manutencao" className="cursor-pointer">Manutenção</option>
+                  <option value="reparo" className="cursor-pointer">Reparo</option>
+                  <option value="emergencia" className="cursor-pointer">Emergência 24h</option>
+                  <option value="orcamento" className="cursor-pointer">Orçamento</option>
                 </select>
               </div>
 
@@ -235,7 +250,7 @@ export default function Contact() {
 
               <button
                 type="submit"
-                className="w-full bg-orange-500 text-white py-4 px-6 rounded-lg hover:bg-orange-600 transition-colors font-semibold flex items-center justify-center space-x-2"
+                className="w-full bg-orange-500 text-white py-4 px-6 rounded-lg hover:bg-orange-600 transition-colors font-semibold flex items-center justify-center space-x-2 cursor-pointer"
               >
                 <Send size={20} />
                 <span>Enviar via WhatsApp</span>
