@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { Phone, Mail, MapPin, Clock, Facebook, Instagram, Linkedin } from 'lucide-react';
+import { Phone, Mail, MapPin, Clock, Instagram } from 'lucide-react';
 
 export default function Footer() {
   return (
@@ -9,13 +9,13 @@ export default function Footer() {
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Company Info */}
           <div className="space-y-6">
-            <div>
+            <div className='overflow-hidden'>
               <Image
                 src="/images/logo-nova-fire.svg"
                 alt="Nova Fire Aquecedores"
                 width={150}
                 height={75}
-                className="h-16 w-auto brightness-0 invert"
+                className="h-24 scale-200"
               />
             </div>
             <p className="text-gray-300 leading-relaxed">
@@ -24,25 +24,12 @@ export default function Footer() {
             </p>
             <div className="flex space-x-4">
               <a
-                href="#"
-                className="bg-gray-800 p-2 rounded-lg hover:bg-orange-500 transition-colors"
-                aria-label="Facebook"
-              >
-                <Facebook size={20} />
-              </a>
-              <a
-                href="#"
+                href="https://www.instagram.com/novafireaquecedores/"
                 className="bg-gray-800 p-2 rounded-lg hover:bg-orange-500 transition-colors"
                 aria-label="Instagram"
+                target='_blank'
               >
                 <Instagram size={20} />
-              </a>
-              <a
-                href="#"
-                className="bg-gray-800 p-2 rounded-lg hover:bg-orange-500 transition-colors"
-                aria-label="LinkedIn"
-              >
-                <Linkedin size={20} />
               </a>
             </div>
           </div>
@@ -63,17 +50,22 @@ export default function Footer() {
               </li>
               <li>
                 <a href="#servicos" className="text-gray-300 hover:text-orange-500 transition-colors">
-                  Reparo Rápido
-                </a>
-              </li>
-              <li>
-                <a href="#servicos" className="text-gray-300 hover:text-orange-500 transition-colors">
                   Atendimento 24h
                 </a>
               </li>
               <li>
                 <a href="#servicos" className="text-gray-300 hover:text-orange-500 transition-colors">
-                  Limpeza e Higienização
+                  Reparo Rápido
+                </a>
+              </li>
+              <li>
+                <a href="#servicos" className="text-gray-300 hover:text-orange-500 transition-colors">
+                  Regulagem de Temperatura
+                </a>
+              </li>
+              <li>
+                <a href="#servicos" className="text-gray-300 hover:text-orange-500 transition-colors">
+                  Vistoria Técnica
                 </a>
               </li>
             </ul>
@@ -89,13 +81,13 @@ export default function Footer() {
                 </a>
               </li>
               <li>
-                <a href="#sobre" className="text-gray-300 hover:text-orange-500 transition-colors">
-                  Sobre Nós
+                <a href="#servicos" className="text-gray-300 hover:text-orange-500 transition-colors">
+                  Serviços
                 </a>
               </li>
               <li>
-                <a href="#servicos" className="text-gray-300 hover:text-orange-500 transition-colors">
-                  Serviços
+                <a href="#sobre" className="text-gray-300 hover:text-orange-500 transition-colors">
+                  Sobre Nós
                 </a>
               </li>
               <li>
@@ -118,7 +110,7 @@ export default function Footer() {
               <div className="flex items-start space-x-3">
                 <Phone className="text-orange-500 mt-1 flex-shrink-0" size={18} />
                 <div>
-                  <p className="text-gray-300">(21) 99999-9999</p>
+                  <p className="text-gray-300">(21) 95945-5162</p>
                   <p className="text-sm text-gray-400">WhatsApp disponível</p>
                 </div>
               </div>
@@ -126,7 +118,7 @@ export default function Footer() {
               <div className="flex items-start space-x-3">
                 <Mail className="text-orange-500 mt-1 flex-shrink-0" size={18} />
                 <div>
-                  <p className="text-gray-300">contato@novafireaquecedores.com.br</p>
+                  <p className="text-gray-300">contato@novafire.com.br</p>
                 </div>
               </div>
               
@@ -159,10 +151,10 @@ export default function Footer() {
               <span className="text-white font-semibold">Emergência 24h disponível</span>
             </div>
             <a
-              href="tel:+5521999999999"
+              href="tel:+5521959455162"
               className="bg-white text-red-600 px-6 py-2 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
             >
-              Ligar Agora: (21) 99999-9999
+              Ligar Agora: (21) 95945-5162
             </a>
           </div>
         </div>
@@ -171,17 +163,9 @@ export default function Footer() {
       {/* Bottom Footer */}
       <div className="bg-gray-950">
         <div className="container mx-auto px-4 py-6">
-          <div className="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
+          <div className="flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0">
             <div className="text-gray-400 text-sm">
               © 2024 Nova Fire Aquecedores. Todos os direitos reservados.
-            </div>
-            <div className="flex items-center space-x-6 text-sm text-gray-400">
-              <a href="#" className="hover:text-orange-500 transition-colors">
-                Política de Privacidade
-              </a>
-              <a href="#" className="hover:text-orange-500 transition-colors">
-                Termos de Uso
-              </a>
             </div>
           </div>
         </div>

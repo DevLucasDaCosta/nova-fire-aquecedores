@@ -42,7 +42,7 @@ export default function Hero() {
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4">
               <a
-                href="tel:+5521999999999"
+                href="tel:+5521959455162"
                 className="flex items-center justify-center space-x-2 bg-orange-500 text-white px-8 py-4 rounded-lg hover:bg-orange-600 transition-colors text-lg font-semibold"
               >
                 <Phone size={20} />
@@ -76,7 +76,7 @@ export default function Hero() {
           <div className="relative">
             <div className="relative z-10">
               <Image
-                src="/images/heater-service.svg"
+                src="/images/heater-service.png"
                 alt="Serviços de aquecedores"
                 width={600}
                 height={450}

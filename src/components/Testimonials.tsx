@@ -6,29 +6,29 @@ import { Star, ChevronLeft, ChevronRight, Quote } from 'lucide-react';
 export default function Testimonials() {
   const testimonials = [
     {
-      name: "Maria Silva",
+      name: "Renato Silva",
       location: "Copacabana",
       rating: 5,
       text: "Excelente serviço! Instalaram meu aquecedor rapidamente e com muita qualidade. Recomendo a Nova Fire para todos!",
       service: "Instalação de Aquecedor"
     },
     {
-      name: "João Santos",
+      name: "Renato Santos",
       location: "Ipanema",
       rating: 5,
       text: "Atendimento 24h salvou meu fim de semana. Técnico chegou rápido e resolveu o problema do aquecedor na hora.",
       service: "Emergência 24h"
     },
     {
-      name: "Ana Costa",
+      name: "Renato Cardoso",
       location: "Barra da Tijuca",
       rating: 5,
       text: "Profissionais muito competentes e educados. Fizeram a manutenção completa e deixaram tudo funcionando perfeitamente.",
       service: "Manutenção Preventiva"
     },
     {
-      name: "Carlos Oliveira",
-      location: "Tijuca",
+      name: "Renato Oliveira",
+      location: "Tijuac",
       rating: 5,
       text: "Ótimo custo-benefício e garantia real. Já uso os serviços há 2 anos e nunca tive problemas.",
       service: "Reparo"
@@ -59,11 +59,11 @@ export default function Testimonials() {
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
             Centenas de clientes satisfeitos confiam na Nova Fire para 
-            seus aquecedores. Veja alguns depoimentos reais.
+            seus aquecedores. Veja alguns depoimentos.
           </p>
         </div>
 
-        {/* Testimonials Carousel */}
+        {/* Testimonials carrosel */}
         <div className="max-w-4xl mx-auto">
           <div className="relative bg-gradient-to-br from-orange-50 to-blue-50 rounded-2xl p-8 lg:p-12">
             {/* Quote Icon */}
@@ -80,7 +80,7 @@ export default function Testimonials() {
                 ))}
               </div>
 
-              {/* Text */}
+              {/* Tetx */}
               <blockquote className="text-xl lg:text-2xl text-gray-700 leading-relaxed font-medium">
                 "{testimonials[currentIndex].text}"
               </blockquote>

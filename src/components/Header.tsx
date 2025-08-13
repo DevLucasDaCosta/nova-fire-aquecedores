@@ -19,7 +19,7 @@ export default function Header() {
           <div className="flex items-center space-x-4">
             <div className="flex items-center space-x-1">
               <Phone size={14} />
-              <span>(21) 99999-9999</span>
+              <span>(21) 95945-5162</span>
             </div>
             <div className="flex items-center space-x-1">
               <MapPin size={14} />
@@ -33,16 +33,16 @@ export default function Header() {
       </div>
 
       {/* Main navigation */}
-      <nav className="container mx-auto px-4 py-4">
+      <nav className="container mx-auto px-4">
         <div className="flex justify-between items-center">
           {/* Logo */}
-          <div className="flex items-center space-x-3">
+          <div className="flex items-center space-x-3 overflow-hidden">
             <Image
               src="/images/logo-nova-fire.svg"
               alt="Nova Fire Aquecedores"
               width={120}
               height={60}
-              className="h-12 w-auto"
+              className="h-12 scale-200"
             />
           </div>
 
