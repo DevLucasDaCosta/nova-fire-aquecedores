@@ -71,8 +71,53 @@ export default function Hero() {
               </div>
             </div>
 
-            {/* Naturgy Licensing Badge */}
-            <div className="pt-6 border-t border-gray-200">
+            {/* Image - Only visible on mobile */}
+            <div className="relative lg:hidden">
+              <div className="relative z-10">
+                <Image
+                  src="/images/heater-service.svg"
+                  alt="Serviços de aquecedores"
+                  width={600}
+                  height={450}
+                  className="w-full h-auto"
+                />
+              </div>
+              
+              {/* Decorative elements */}
+              <div className="absolute -top-4 -right-4 w-20 h-20 bg-orange-200 rounded-full opacity-70"></div>
+              <div className="absolute -bottom-6 -left-6 w-32 h-32 bg-blue-200 rounded-full opacity-50"></div>
+            </div>
+
+            {/* Naturgy Licensing Badge - Only visible on mobile */}
+            <div className="pt-6 border-t border-gray-200 lg:hidden">
+              <div className="flex items-center space-x-4">
+                <div className="relative">
+                  <div className="w-24 h-24 bg-white rounded-full shadow-lg flex items-center justify-center overflow-hidden">
+                    <Image
+                      src="/images/naturgy-logo.svg"
+                      alt="Naturgy - Empresa Licenciada"
+                      width={64}
+                      height={64}
+                      className="w-full h-full"
+                    />
+                  </div>
+                  <div className="absolute -top-1 -right-1 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
+                    <CheckCircle className="text-white" size={16} />
+                  </div>
+                </div>
+                <div className="flex-1">
+                  <p className="text-lg font-semibold text-gray-900">
+                    Empresa Licenciada Naturgy
+                  </p>
+                  <p className="text-md text-gray-600">
+                    Autorizada para instalação e manutenção de equipamentos
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Naturgy Licensing Badge - Only visible on desktop */}
+            <div className="pt-6 border-t border-gray-200 hidden lg:block">
               <div className="flex items-center space-x-4">
                 <div className="relative">
                   <div className="w-24 h-24 bg-white rounded-full shadow-lg flex items-center justify-center overflow-hidden">
@@ -100,8 +145,8 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* Image */}
-          <div className="relative">
+          {/* Image - Only visible on desktop */}
+          <div className="relative hidden lg:block">
             <div className="relative z-10">
               <Image
                 src="/images/heater-service.svg"

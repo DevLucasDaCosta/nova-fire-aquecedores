@@ -36,13 +36,13 @@ export default function Header() {
       <nav className="container mx-auto px-4">
         <div className="flex justify-between items-center">
           {/* Logo */}
-          <div className="flex items-center space-x-3 overflow-hidden">
+          <div className="flex items-center space-x-3 overflow-hidden p-2">
             <Image
               src="/images/logo-nova-fire.svg"
               alt="Nova Fire Aquecedores"
-              width={120}
+              width={200}
               height={60}
-              className="h-12 scale-200"
+              className="h-14"
             />
           </div>
 
