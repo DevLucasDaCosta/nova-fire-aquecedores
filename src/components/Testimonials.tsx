@@ -82,7 +82,7 @@ export default function Testimonials() {
 
               {/* Tetx */}
               <blockquote className="text-xl lg:text-2xl text-gray-700 leading-relaxed font-medium">
-                "{testimonials[currentIndex].text}"
+                &quot;{testimonials[currentIndex].text}&quot;
               </blockquote>
 
               {/* Author Info */}
