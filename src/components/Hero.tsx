@@ -10,7 +10,7 @@ export default function Hero() {
           <div className="space-y-8">
             <div className="space-y-4">
               <h1 className="text-4xl lg:text-6xl font-bold text-gray-900 leading-tight">
-                Especialistas em{' '}
+                Assistência técnica de{' '}
                 <span className="text-orange-500">Aquecedores</span>
               </h1>
               <p className="text-xl text-gray-600 leading-relaxed">
@@ -68,6 +68,34 @@ export default function Hero() {
               </div>
               <div className="text-gray-600">
                 <span className="font-semibold">+500</span> clientes satisfeitos
+              </div>
+            </div>
+
+            {/* Naturgy Licensing Badge */}
+            <div className="pt-6 border-t border-gray-200">
+              <div className="flex items-center space-x-4">
+                <div className="relative">
+                  <div className="w-16 h-16 bg-white rounded-full shadow-lg flex items-center justify-center overflow-hidden">
+                    <Image
+                      src="/images/naturgy-logo.svg"
+                      alt="Naturgy - Empresa Licenciada"
+                      width={64}
+                      height={64}
+                      className="w-full h-full"
+                    />
+                  </div>
+                  <div className="absolute -top-1 -right-1 w-5 h-5 bg-green-500 rounded-full flex items-center justify-center">
+                    <CheckCircle className="text-white" size={12} />
+                  </div>
+                </div>
+                <div className="flex-1">
+                  <p className="text-sm font-semibold text-gray-900">
+                    Empresa Licenciada Naturgy
+                  </p>
+                  <p className="text-xs text-gray-600">
+                    Autorizada para instalação e manutenção de equipamentos
+                  </p>
+                </div>
               </div>
             </div>
           </div>

@@ -5,7 +5,7 @@ export default function Services() {
     {
       icon: <Wrench className="text-orange-500" size={40} />,
       title: "Instalação de Aquecedores",
-      description: "Instalação profissional de aquecedores a gás, elétricos e solares com garantia total."
+      description: "Instalação profissional de aquecedores a gás e boilers elétricos com garantia total."
     },
     {
       icon: <Shield className="text-blue-500" size={40} />,

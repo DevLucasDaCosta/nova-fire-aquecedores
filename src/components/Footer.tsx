@@ -118,7 +118,7 @@ export default function Footer() {
               <div className="flex items-start space-x-3">
                 <Mail className="text-orange-500 mt-1 flex-shrink-0" size={18} />
                 <div>
-                  <p className="text-gray-300">contato@novafire.com.br</p>
+                  <p className="text-gray-300">novafireaquecedores@gmail.com</p>
                 </div>
               </div>
               
