@@ -119,7 +119,7 @@ export default function Footer() {
 
           {/* Our units */}
           <div>
-            <h3 className="text-lg font-semibold mb-4">Nossas Unidades</h3>
+            <h3 className="text-lg font-semibold mb-4">Nossas Centrais de Atendimento</h3>
             <div className="space-y-4">
               {/* Copacabana */}
               <div className="border-l-2 border-orange-500 pl-3">

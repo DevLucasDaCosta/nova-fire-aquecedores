@@ -107,7 +107,7 @@ export default function Contact() {
                   <MapPin className="text-green-500" size={24} />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-gray-900 mb-1">Nossas Unidades</h4>
+                  <h4 className="font-semibold text-gray-900 mb-1">Nossas Centrais de Atendimento</h4>
                   <div className="space-y-3">
                     <div>
                       <p className="text-gray-900 font-medium text-sm">Copacabana</p>
