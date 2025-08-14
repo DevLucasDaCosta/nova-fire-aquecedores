@@ -1,0 +1,649 @@
+# GUIA COMPLETO DE DEPLOY - NOVA FIRE AQUECEDORES
+# Servidor Debian + Node.js + PM2 + Nginx + SSL
+# Data: 14 de Agosto de 2025
+
+===============================================================================
+📋 PRÉ-REQUISITOS
+===============================================================================
+
+✅ Servidor Debian funcionando
+✅ Acesso root/sudo ao servidor
+✅ Domínio configurado (novafireaquecedores.com.br)
+✅ DNS apontando para IP do servidor (72.60.14.60)
+
+===============================================================================
+🚀 PASSO A PASSO COMPLETO
+===============================================================================
+
+=================== PASSO 1: VERIFICAR/INSTALAR GIT =========================
+
+# Verificar se git está instalado
+git --version
+
+# Se não estiver instalado ou der erro:
+sudo apt update
+sudo apt install -y git
+
+=================== PASSO 2: VERIFICAR/INSTALAR NODE.JS ====================
+
+# Verificar se Node.js está instalado
+node --version
+npm --version
+
+# Se não estiver instalado ou a versão for muito antiga (precisa ser 18+):
+curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+sudo apt install -y nodejs
+
+# Verificar instalação
+node --version
+npm --version
+
+=================== PASSO 3: VERIFICAR/INSTALAR PM2 ========================
+
+# Verificar se PM2 está instalado
+pm2 --version
+
+# Se não estiver instalado:
+sudo npm install -g pm2
+
+# Verificar instalação
+pm2 --version
+
+=================== PASSO 4: VERIFICAR/INSTALAR NGINX ======================
+
+# Verificar se Nginx está instalado
+nginx -v
+
+# Se não estiver instalado:
+sudo apt install -y nginx
+
+# Iniciar e habilitar Nginx
+sudo systemctl start nginx
+sudo systemctl enable nginx
+
+# Verificar status
+sudo systemctl status nginx
+
+# Se der erro de porta ocupada (Apache):
+sudo systemctl stop apache2
+sudo systemctl disable apache2
+sudo systemctl start nginx
+
+=================== PASSO 5: VERIFICAR/INSTALAR CERTBOT ====================
+
+# Verificar se Certbot está instalado
+certbot --version
+
+# Se não estiver instalado:
+sudo apt install -y certbot python3-certbot-nginx
+
+=================== PASSO 6: CRIAR ESTRUTURA DE DIRETÓRIOS ==================
+
+# Criar diretório para aplicações web
+sudo mkdir -p /var/www
+
+# Verificar se usuário www-data existe
+id www-data
+
+# Se não existir:
+sudo useradd -r -s /bin/false www-data
+
+# Configurar permissões
+sudo chown -R www-data:www-data /var/www
+sudo chmod -R 755 /var/www
+
+# Criar diretório para logs do PM2
+sudo mkdir -p /var/log/pm2
+sudo chown -R www-data:www-data /var/log/pm2
+
+=================== PASSO 7: CLONAR O PROJETO DO GITHUB ==================
+
+# Ir para o diretório web
+cd /var/www
+
+# Clonar seu projeto
+sudo git clone https://github.com/DevLucasDaCosta/nova-fire-aquecedores.git
+
+# Entrar no diretório do projeto
+cd nova-fire-aquecedores
+
+# Configurar permissões
+sudo chown -R www-data:www-data /var/www/nova-fire-aquecedores
+
+=================== PASSO 8: INSTALAR DEPENDÊNCIAS DO PROJETO ==============
+
+# Entrar no diretório do projeto
+cd /var/www/nova-fire-aquecedores
+
+# Instalar dependências como usuário www-data
+sudo -u www-data npm ci
+
+# Verificar se instalou corretamente
+sudo -u www-data npm list --depth=0
+
+=================== PASSO 9: FAZER BUILD DO PROJETO ========================
+
+# Ainda no diretório do projeto
+cd /var/www/nova-fire-aquecedores
+
+# Fazer build como usuário www-data
+sudo -u www-data npm run build
+
+# Verificar se o build foi criado
+ls -la .next/
+
+=================== PASSO 10: CRIAR CONFIGURAÇÃO DO PM2 ====================
+
+# Criar arquivo de configuração do PM2
+sudo nano /var/www/nova-fire-aquecedores/ecosystem.config.js
+
+# Cole o seguinte conteúdo:
+module.exports = {
+  apps: [
+    {
+      name: 'nova-fire-aquecedores',
+      script: 'npm',
+      args: 'start',
+      cwd: '/var/www/nova-fire-aquecedores',
+      instances: 'max',
+      exec_mode: 'cluster',
+      env: {
+        NODE_ENV: 'production',
+        PORT: '3001'
+      },
+      error_file: '/var/log/pm2/nova-fire-aquecedores-error.log',
+      out_file: '/var/log/pm2/nova-fire-aquecedores-out.log',
+      log_file: '/var/log/pm2/nova-fire-aquecedores.log',
+      time: true,
+      max_memory_restart: '500M',
+      node_args: '--max-old-space-size=400',
+      restart_delay: 4000,
+      max_restarts: 5,
+      min_uptime: '10s'
+    }
+  ]
+};
+
+# Salvar e sair (Ctrl+X, Y, Enter)
+
+=================== PASSO 11: INICIAR APLICAÇÃO COM PM2 =====================
+
+# Entrar no diretório do projeto
+cd /var/www/nova-fire-aquecedores
+
+# Iniciar aplicação como usuário www-data
+sudo -u www-data pm2 start ecosystem.config.js
+
+# Verificar se está rodando
+sudo -u www-data pm2 list
+
+# Ver logs (opcional)
+sudo -u www-data pm2 logs nova-fire-aquecedores
+
+=================== PASSO 12: CONFIGURAR STARTUP AUTOMÁTICO DO PM2 ==========
+
+# Configurar PM2 para iniciar automaticamente
+sudo -u www-data pm2 startup systemd -u www-data --hp /var/www
+
+# IMPORTANTE: O comando acima vai retornar uma linha que você deve executar
+# Algo como: sudo env PATH=$PATH:/usr/bin /usr/lib/node_modules/pm2/bin/pm2 startup systemd -u www-data --hp /var/www
+# EXECUTE A LINHA QUE FOR RETORNADA
+
+# Salvar configuração atual do PM2
+sudo -u www-data pm2 save
+
+=================== PASSO 13: TESTAR A APLICAÇÃO ============================
+
+# Testar se a aplicação está respondendo
+curl http://localhost:3001
+
+# Verificar se a porta está sendo usada
+sudo netstat -tlnp | grep :3001
+
+=================== PASSO 14: CONFIGURAR NGINX ==============================
+
+# Criar arquivo de configuração do Nginx
+sudo nano /etc/nginx/sites-available/nova-fire-aquecedores
+
+# Cole o seguinte conteúdo (SUBSTITUA novafireaquecedores.com.br pelo seu domínio):
+
+# Configuração temporária sem SSL (será configurado depois)
+server {
+    listen 80;
+    server_name novafireaquecedores.com.br www.novafireaquecedores.com.br;
+
+    # Security Headers
+    add_header X-Frame-Options "SAMEORIGIN" always;
+    add_header X-XSS-Protection "1; mode=block" always;
+    add_header X-Content-Type-Options "nosniff" always;
+    add_header Referrer-Policy "strict-origin-when-cross-origin" always;
+
+    # Compression
+    gzip on;
+    gzip_vary on;
+    gzip_min_length 1024;
+    gzip_comp_level 6;
+    gzip_types
+        text/plain
+        text/css
+        text/xml
+        text/javascript
+        application/javascript
+        application/xml+rss
+        application/json
+        application/xml
+        image/svg+xml;
+
+    # Main application
+    location / {
+        proxy_pass http://127.0.0.1:3001;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_cache_bypass $http_upgrade;
+        
+        # Timeouts
+        proxy_connect_timeout 60s;
+        proxy_send_timeout 60s;
+        proxy_read_timeout 60s;
+    }
+
+    # Static files optimization
+    location /_next/static {
+        proxy_pass http://127.0.0.1:3001;
+        expires 1y;
+        add_header Cache-Control "public, immutable";
+    }
+
+    # Images and assets
+    location ~* \.(jpg|jpeg|png|gif|ico|svg|webp|css|js|woff|woff2|ttf|eot)$ {
+        proxy_pass http://127.0.0.1:3001;
+        expires 30d;
+        add_header Cache-Control "public, no-transform";
+    }
+
+    # Block access to sensitive files
+    location ~ /\. {
+        deny all;
+        access_log off;
+        log_not_found off;
+    }
+}
+
+# Salvar e sair (Ctrl+X, Y, Enter)
+
+=================== PASSO 15: ATIVAR SITE NO NGINX ===========================
+
+# Criar link simbólico para ativar o site
+sudo ln -s /etc/nginx/sites-available/nova-fire-aquecedores /etc/nginx/sites-enabled/
+
+# Remover site padrão do Nginx (opcional)
+sudo rm -f /etc/nginx/sites-enabled/default
+
+# Testar configuração do Nginx
+sudo nginx -t
+
+# Se deu tudo certo, recarregar Nginx
+sudo systemctl reload nginx
+
+=================== PASSO 16: CONFIGURAR DNS (NO PROVEDOR) ==================
+
+# Configure no seu provedor de domínio:
+# Tipo: A
+# Nome: @
+# Valor: 72.60.14.60
+# TTL: 3600
+
+# Tipo: CNAME (se já não existir)
+# Nome: www
+# Valor: novafireaquecedores.com.br
+# TTL: 3600
+
+# Aguarde a propagação do DNS (pode levar até 24h, mas geralmente é mais rápido)
+
+=================== PASSO 17: TESTAR SITE SEM SSL ===========================
+
+# Verificar se o site está acessível
+curl -I http://novafireaquecedores.com.br
+
+# Verificar logs do Nginx
+sudo tail -f /var/log/nginx/access.log
+
+=================== PASSO 18: CONFIGURAR SSL COM LET'S ENCRYPT ==============
+
+# Obter certificado SSL
+sudo certbot --nginx -d novafireaquecedores.com.br -d www.novafireaquecedores.com.br
+
+# O Certbot vai perguntar algumas coisas:
+# 1. Email: coloque seu email
+# 2. Aceitar termos: Y
+# 3. Compartilhar email: A (Accept) ou N (No)
+# 4. Redirect HTTP para HTTPS: 2 (Redirect)
+
+=================== PASSO 19: VERIFICAR SSL E SITE FINAL =====================
+
+# Testar certificado SSL
+sudo certbot certificates
+
+# Verificar renovação automática
+sudo certbot renew --dry-run
+
+# Configurar renovação automática no cron (se não estiver)
+(crontab -l 2>/dev/null; echo "0 12 * * * /usr/bin/certbot renew --quiet") | crontab -
+
+=================== PASSO 20: VERIFICAÇÕES FINAIS ===========================
+
+# Verificar status de todos os serviços
+sudo systemctl status nginx
+sudo -u www-data pm2 list
+sudo -u www-data pm2 logs nova-fire-aquecedores --lines 5
+
+# Testar site completo
+curl -I https://novafireaquecedores.com.br
+
+# Verificar portas
+sudo netstat -tlnp | grep -E ':(80|443|3001)'
+
+===============================================================================
+🔧 COMANDOS ÚTEIS PARA MANUTENÇÃO
+===============================================================================
+
+=================== APLICAÇÃO (PM2) ==========================================
+
+# Ver logs da aplicação
+sudo -u www-data pm2 logs nova-fire-aquecedores
+
+# Ver logs em tempo real
+sudo -u www-data pm2 logs nova-fire-aquecedores --lines 50 -f
+
+# Reiniciar aplicação
+sudo -u www-data pm2 restart nova-fire-aquecedores
+
+# Parar aplicação
+sudo -u www-data pm2 stop nova-fire-aquecedores
+
+# Iniciar aplicação
+sudo -u www-data pm2 start nova-fire-aquecedores
+
+# Ver status de todas as aplicações
+sudo -u www-data pm2 list
+
+# Ver informações detalhadas
+sudo -u www-data pm2 show nova-fire-aquecedores
+
+# Monitor em tempo real
+sudo -u www-data pm2 monit
+
+# Reload sem downtime
+sudo -u www-data pm2 reload nova-fire-aquecedores
+
+# Ver uso de memória e CPU
+sudo -u www-data pm2 status
+
+=================== NGINX ===================================================
+
+# Testar configuração
+sudo nginx -t
+
+# Recarregar configuração
+sudo systemctl reload nginx
+
+# Reiniciar Nginx
+sudo systemctl restart nginx
+
+# Ver status
+sudo systemctl status nginx
+
+# Ver logs de acesso
+sudo tail -f /var/log/nginx/access.log
+
+# Ver logs de erro
+sudo tail -f /var/log/nginx/error.log
+
+# Ver últimas 100 linhas dos logs
+sudo tail -n 100 /var/log/nginx/access.log
+
+=================== SSL/CERTIFICADOS ========================================
+
+# Ver certificados instalados
+sudo certbot certificates
+
+# Renovar certificados manualmente
+sudo certbot renew
+
+# Testar renovação
+sudo certbot renew --dry-run
+
+# Forçar renovação
+sudo certbot renew --force-renewal
+
+=================== SISTEMA ==================================================
+
+# Ver uso de recursos
+htop
+
+# Ver uso de disco
+df -h
+
+# Ver processos Node.js
+ps aux | grep node
+
+# Ver processos Nginx
+ps aux | grep nginx
+
+# Ver portas em uso
+sudo netstat -tlnp
+
+# Ver portas específicas
+sudo netstat -tlnp | grep -E ':(80|443|3001)'
+
+# Ver conexões ativas
+sudo ss -tuln
+
+=================== ATUALIZAÇÕES DA APLICAÇÃO ===============================
+
+# Atualizar aplicação (quando fizer mudanças no código)
+cd /var/www/nova-fire-aquecedores
+sudo git pull origin main
+sudo -u www-data npm ci
+sudo -u www-data npm run build
+sudo -u www-data pm2 reload nova-fire-aquecedores
+
+# Script completo de update
+cd /var/www/nova-fire-aquecedores && \
+sudo git pull origin main && \
+sudo -u www-data npm ci && \
+sudo -u www-data npm run build && \
+sudo -u www-data pm2 reload nova-fire-aquecedores && \
+echo "✅ Update concluído!"
+
+===============================================================================
+🚨 SOLUÇÃO DE PROBLEMAS COMUNS
+===============================================================================
+
+=================== APLICAÇÃO NÃO INICIA ====================================
+
+1. Verificar logs:
+   sudo -u www-data pm2 logs nova-fire-aquecedores
+
+2. Verificar se a porta está livre:
+   sudo netstat -tlnp | grep :3001
+
+3. Verificar permissões:
+   ls -la /var/www/nova-fire-aquecedores
+
+4. Verificar se o build existe:
+   ls -la /var/www/nova-fire-aquecedores/.next/
+
+5. Tentar restart manual:
+   cd /var/www/nova-fire-aquecedores
+   sudo -u www-data pm2 delete nova-fire-aquecedores
+   sudo -u www-data pm2 start ecosystem.config.js
+
+=================== NGINX RETORNA ERRO ======================================
+
+1. Testar configuração:
+   sudo nginx -t
+
+2. Ver logs de erro:
+   sudo tail -f /var/log/nginx/error.log
+
+3. Verificar se a aplicação está rodando:
+   curl http://localhost:3001
+
+4. Verificar configuração do site:
+   sudo nano /etc/nginx/sites-available/nova-fire-aquecedores
+
+5. Recarregar Nginx:
+   sudo systemctl reload nginx
+
+=================== SSL NÃO FUNCIONA =========================================
+
+1. Verificar DNS:
+   nslookup novafireaquecedores.com.br
+
+2. Verificar certificados:
+   sudo certbot certificates
+
+3. Tentar obter certificado novamente:
+   sudo certbot --nginx -d novafireaquecedores.com.br -d www.novafireaquecedores.com.br
+
+4. Ver logs do Certbot:
+   sudo tail -f /var/log/letsencrypt/letsencrypt.log
+
+5. Verificar se as portas 80 e 443 estão abertas:
+   sudo netstat -tlnp | grep -E ':(80|443)'
+
+=================== SITE MUITO LENTO =========================================
+
+1. Verificar uso de recursos:
+   htop
+
+2. Verificar logs da aplicação:
+   sudo -u www-data pm2 logs nova-fire-aquecedores
+
+3. Reiniciar aplicação:
+   sudo -u www-data pm2 restart nova-fire-aquecedores
+
+4. Verificar cache do Nginx:
+   sudo ls -la /var/cache/nginx/
+
+5. Limpar cache do Nginx:
+   sudo rm -rf /var/cache/nginx/*
+   sudo systemctl reload nginx
+
+=================== ERRO 502 BAD GATEWAY ====================================
+
+1. Verificar se a aplicação está rodando:
+   sudo -u www-data pm2 list
+
+2. Verificar se a porta 3001 está respondendo:
+   curl http://localhost:3001
+
+3. Verificar logs do Nginx:
+   sudo tail -f /var/log/nginx/error.log
+
+4. Reiniciar aplicação:
+   sudo -u www-data pm2 restart nova-fire-aquecedores
+
+=================== ERRO 404 NOT FOUND ======================================
+
+1. Verificar se o site está habilitado:
+   ls -la /etc/nginx/sites-enabled/
+
+2. Verificar configuração do servidor:
+   sudo nginx -t
+
+3. Verificar DNS:
+   nslookup novafireaquecedores.com.br
+
+4. Testar com IP direto:
+   curl http://72.60.14.60
+
+=================== DISCO CHEIO ==============================================
+
+1. Verificar uso do disco:
+   df -h
+
+2. Limpar logs antigos:
+   sudo find /var/log -type f -name "*.log" -mtime +30 -delete
+
+3. Limpar cache:
+   sudo rm -rf /var/cache/nginx/*
+
+4. Limpar logs do PM2:
+   sudo -u www-data pm2 flush
+
+5. Verificar tamanho dos logs:
+   sudo du -sh /var/log/pm2/*
+
+===============================================================================
+📂 ESTRUTURA DE ARQUIVOS NO SERVIDOR
+===============================================================================
+
+/var/www/nova-fire-aquecedores/
+├── ecosystem.config.js          # Configuração do PM2
+├── package.json                 # Dependências do projeto
+├── next.config.ts              # Configuração do Next.js
+├── .next/                      # Build da aplicação
+├── src/                        # Código fonte
+├── public/                     # Arquivos públicos
+└── node_modules/               # Dependências instaladas
+
+/etc/nginx/sites-available/nova-fire-aquecedores    # Configuração do Nginx
+/etc/nginx/sites-enabled/nova-fire-aquecedores      # Link simbólico
+
+/var/log/pm2/                   # Logs da aplicação
+├── nova-fire-aquecedores.log           # Logs gerais
+├── nova-fire-aquecedores-error.log     # Logs de erro
+└── nova-fire-aquecedores-out.log       # Logs de saída
+
+/var/log/nginx/                 # Logs do Nginx
+├── access.log                  # Logs de acesso
+└── error.log                   # Logs de erro
+
+/etc/letsencrypt/               # Certificados SSL
+└── live/novafireaquecedores.com.br/    # Certificados do domínio
+
+===============================================================================
+📞 INFORMAÇÕES DO PROJETO
+===============================================================================
+
+- Nome: Nova Fire Aquecedores
+- Repositório: https://github.com/DevLucasDaCosta/nova-fire-aquecedores
+- Domínio: https://novafireaquecedores.com.br
+- Servidor: 72.60.14.60
+- Porta da aplicação: 3001
+- Tecnologias: Next.js, React, TypeScript, Tailwind CSS
+- Servidor web: Nginx
+- Gerenciador de processos: PM2
+- SSL: Let's Encrypt
+
+===============================================================================
+✅ CHECKLIST FINAL
+===============================================================================
+
+□ Node.js 18+ instalado
+□ PM2 instalado e configurado
+□ Nginx instalado e funcionando
+□ Projeto clonado do GitHub
+□ Dependências instaladas
+□ Build da aplicação criado
+□ PM2 executando a aplicação
+□ Nginx configurado como proxy reverso
+□ DNS configurado corretamente
+□ SSL configurado com Let's Encrypt
+□ Site acessível via HTTPS
+□ Renovação automática do SSL configurada
+
+===============================================================================
+🎉 PARABÉNS! SEU SITE ESTÁ NO AR!
+===============================================================================
+
+Acesse: https://novafireaquecedores.com.br
+
+===============================================================================
