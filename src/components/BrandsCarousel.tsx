@@ -41,7 +41,7 @@ export default function BrandsCarousel() {
                     alt={`${brand.name} Logo`}
                     width={140}
                     height={80}
-                    className="max-w-full max-h-full object-contain filter grayscale hover:grayscale-0 transition-all duration-200 opacity-60 group-hover:opacity-100"
+                    className="max-w-full max-h-full object-contain transition-all duration-200 group-hover:opacity-100"
                     onError={(e) => {
                       const target = e.target as HTMLImageElement;
                       target.style.display = 'none';
