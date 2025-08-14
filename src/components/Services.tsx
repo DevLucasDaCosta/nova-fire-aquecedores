@@ -1,4 +1,4 @@
-import { Wrench, Shield, Clock, Zap, Thermometer, Search } from 'lucide-react';
+import { Wrench, Shield, Clock, Thermometer, Search, Flame } from 'lucide-react';
 
 export default function Services() {
   const services = [
@@ -18,9 +18,9 @@ export default function Services() {
       description: "Emergências e reparos urgentes disponíveis 24 horas por dia, 7 dias na semana."
     },
     {
-      icon: <Zap className="text-yellow-500" size={40} />,
-      title: "Reparo Rápido",
-      description: "Diagnóstico e reparo rápido com peças originais e técnicos especializados."
+      icon: <Flame className="text-yellow-500" size={40} />,
+      title: "Fogões e Cooktops",
+      description: "Serviço especializado de conversão e instalação segura de fogões e cooktops."
     },
     {
       icon: <Thermometer className="text-red-500" size={40} />,

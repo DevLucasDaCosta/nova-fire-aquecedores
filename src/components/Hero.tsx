@@ -11,7 +11,7 @@ export default function Hero() {
             <div className="space-y-4">
               <h1 className="text-4xl lg:text-6xl font-bold text-gray-900 leading-tight">
                 Assistência técnica de{' '}
-                <span className="text-orange-500">Aquecedores</span>
+                <span className="text-orange-500">Aquecedores a Gás</span>
               </h1>
               <p className="text-xl text-gray-600 leading-relaxed">
                 Instalação, manutenção e reparo de aquecedores com garantia e qualidade. 
