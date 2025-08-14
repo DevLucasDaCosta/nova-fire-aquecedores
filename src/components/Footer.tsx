@@ -13,9 +13,9 @@ export default function Footer() {
               <Image
                 src="/images/logo-nova-fire.svg"
                 alt="Nova Fire Aquecedores"
-                width={120}
+                width={200}
                 height={60}
-                className="h-16 scale-250"
+                className="h-16 object-center"
               />
             </div>
             <p className="text-gray-300 leading-relaxed text-sm">
