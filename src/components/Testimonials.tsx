@@ -6,29 +6,29 @@ import { Star, ChevronLeft, ChevronRight, Quote } from 'lucide-react';
 export default function Testimonials() {
   const testimonials = [
     {
-      name: "Renato Silva",
+      name: "Mariana Costa",
       location: "Copacabana",
       rating: 5,
       text: "Excelente serviço! Instalaram meu aquecedor rapidamente e com muita qualidade. Recomendo a Nova Fire para todos!",
       service: "Instalação de Aquecedor"
     },
     {
-      name: "Renato Santos",
+      name: "Carlos Eduardo",
       location: "Ipanema",
       rating: 5,
       text: "Atendimento 24h salvou meu fim de semana. Técnico chegou rápido e resolveu o problema do aquecedor na hora.",
       service: "Emergência 24h"
     },
     {
-      name: "Renato Cardoso",
+      name: "Ana Paula Ferreira",
       location: "Barra da Tijuca",
       rating: 5,
       text: "Profissionais muito competentes e educados. Fizeram a manutenção completa e deixaram tudo funcionando perfeitamente.",
       service: "Manutenção Preventiva"
     },
     {
-      name: "Renato Oliveira",
-      location: "Tijuac",
+      name: "Roberto Almeida",
+      location: "Niterói",
       rating: 5,
       text: "Ótimo custo-benefício e garantia real. Já uso os serviços há 2 anos e nunca tive problemas.",
       service: "Reparo"
