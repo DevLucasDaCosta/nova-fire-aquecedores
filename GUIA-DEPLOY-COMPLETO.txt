@@ -446,18 +446,35 @@ sudo ss -tuln
 
 =================== ATUALIZAÇÕES DA APLICAÇÃO ===============================
 
+# IMPORTANTE: Resolver problema de "dubious ownership" (se aparecer)
+# Se aparecer erro: "fatal: detected dubious ownership in repository"
+# Execute PRIMEIRO:
+git config --global --add safe.directory /var/www/nova-fire-aquecedores
+
 # Atualizar aplicação (quando fizer mudanças no código)
 cd /var/www/nova-fire-aquecedores
-sudo git pull origin main
+sudo -u www-data git pull origin main
 sudo -u www-data npm ci
 sudo -u www-data npm run build
 sudo -u www-data pm2 reload nova-fire-aquecedores
 
-# Script completo de update
+# Script completo de update (com correção de permissão)
 cd /var/www/nova-fire-aquecedores && \
-sudo git pull origin main && \
+git config --global --add safe.directory /var/www/nova-fire-aquecedores && \
+sudo -u www-data git pull origin main && \
 sudo -u www-data npm ci && \
 sudo -u www-data npm run build && \
+sudo -u www-data pm2 reload nova-fire-aquecedores && \
+echo "✅ Update concluído!"
+
+# Alternativa usando sempre www-data para Git:
+cd /var/www/nova-fire-aquecedores && \
+sudo -u www-data git config --global --add safe.directory /var/www/nova-fire-aquecedores && \
+sudo -u www-data git pull origin main && \
+sudo -u www-data npm ci && \
+sudo -u www-data npm run build && \
+sudo -u www-data pm2 reload nova-fire-aquecedores && \
+echo "✅ Update concluído!" \
 sudo -u www-data pm2 reload nova-fire-aquecedores && \
 echo "✅ Update concluído!"
 
@@ -483,6 +500,20 @@ echo "✅ Update concluído!"
    cd /var/www/nova-fire-aquecedores
    sudo -u www-data pm2 delete nova-fire-aquecedores
    sudo -u www-data pm2 start ecosystem.config.js
+
+=================== ERRO GIT "DUBIOUS OWNERSHIP" ============================
+
+1. Erro: "fatal: detected dubious ownership in repository"
+   git config --global --add safe.directory /var/www/nova-fire-aquecedores
+
+2. Ou configurar para www-data:
+   sudo -u www-data git config --global --add safe.directory /var/www/nova-fire-aquecedores
+
+3. Depois tentar pull novamente:
+   sudo -u www-data git pull origin main
+
+4. Para evitar no futuro, sempre use www-data para Git:
+   sudo -u www-data git pull origin main
 
 =================== NGINX RETORNA ERRO ======================================
 
